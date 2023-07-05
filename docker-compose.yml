@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  gym-pass-api: 
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+# docker compose up -d
+# docker compose stop
