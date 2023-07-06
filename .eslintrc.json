@@ -12,5 +12,6 @@
         "project": ["./tsconfig.json", "jest.config.ts"]
     },
     "rules": {
+        "no-useless-constructor":"off"
     }
 }
