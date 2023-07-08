@@ -1,14 +1,9 @@
 import * as express from 'express'
-import { type Router, type Request, type Response } from 'express'
+import { type Request, type Response } from 'express'
+import { cresteUserFactory } from '../use-cases/create-user/CresteUserFactory'
 
-class UserRoutes {
-  public readonly routes: Router
-  constructor () {
-    //
-    this.routes = express.Router()
-    //
-    this.routes.post('/user', (req: Request, res: Response) => { res.status(200).send() })
-  }
-}
+const userRoutes = express.Router()
 
-export default UserRoutes
+userRoutes.post('/user', (req: Request, res: Response) => { void cresteUserFactory().handle(req, res) })
+
+export default userRoutes
