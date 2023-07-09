@@ -17,6 +17,15 @@ class UserRepository implements IUserRepository {
     }
   }
 
+  async getUser (id: string): Promise<UserEntity | null> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id
+      }
+    })
+    return user
+  }
+
   async getUserByEmail (email: string): Promise<UserEntity | null> {
     const user = await prisma.user.findUnique({
       where: {
@@ -24,6 +33,32 @@ class UserRepository implements IUserRepository {
       }
     })
     return user
+  }
+
+  async getAllUsers (): Promise<UserEntity[]> {
+    const allUsers = await prisma.user.findMany()
+    return allUsers
+  }
+
+  async update (body: { id: string, name?: string, email?: string, password_hash?: string }): Promise<void> {
+    await prisma.user.update({
+      where: {
+        id: body.id
+      },
+      data: {
+        name: body.name,
+        email: body.email,
+        password_hash: body.password_hash
+      }
+    })
+  }
+
+  async delete (id: string): Promise<void> {
+    await prisma.user.delete({
+      where: {
+        id
+      }
+    })
   }
 }
 
