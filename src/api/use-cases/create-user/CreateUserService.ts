@@ -3,18 +3,24 @@ import { UserAlreadyExistsError } from '../../errors/UserAlreadyExistserror'
 import { type ICreateUserService } from '../../interfaces/ICreateUserService'
 import { hash } from 'bcryptjs'
 import { type IUserRepository } from '../../interfaces/IUserRepository'
+import { emailValidator } from '../../validators/emailValidator'
 
 class CreateUserService implements ICreateUserService {
   constructor (private readonly UserRepository: IUserRepository) {}
 
   async execute (user: { name: string, email: string, password: string }): Promise<void> {
-    if (user.email === undefined) {
+    if (user.email === undefined || user.email === '') {
       throw new InvalidCredentialsError()
     }
-    if (user.name === undefined) {
+    if (user.name === undefined || user.name === '') {
       throw new InvalidCredentialsError()
     }
-    if (user.password === undefined) {
+    if (user.password === undefined || user.password === '') {
+      throw new InvalidCredentialsError()
+    }
+
+    const isValidEmail = emailValidator(user.email)
+    if (!isValidEmail) {
       throw new InvalidCredentialsError()
     }
 
