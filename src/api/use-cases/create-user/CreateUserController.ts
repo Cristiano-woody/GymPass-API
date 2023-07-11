@@ -18,6 +18,10 @@ class CreateUserController implements ICreateUserController {
         return res.status(400).send({ message: error.message })
       }
 
+      if (error instanceof Error) {
+        return res.status(500).send({ message: error.message })
+      }
+
       return res.status(500).send({ message: 'internal server error' })
     }
   }
