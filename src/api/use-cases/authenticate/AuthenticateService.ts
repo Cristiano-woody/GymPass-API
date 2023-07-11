@@ -3,8 +3,9 @@ import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
 import { emailValidator } from '../../validators/emailValidator'
 import { compare } from 'bcryptjs'
 import type UserEntity from '../../entities/UserEntity'
+import { type IAuthenticateService } from '../../interfaces/IAuthenticateService'
 
-class AutenticateService {
+class AuthenticateService implements IAuthenticateService {
   constructor (private readonly UserRepository: IUserRepository) {}
 
   async execute (data: { email: string, password: string }): Promise<UserEntity> {
@@ -35,4 +36,4 @@ class AutenticateService {
   }
 }
 
-export default AutenticateService
+export default AuthenticateService
