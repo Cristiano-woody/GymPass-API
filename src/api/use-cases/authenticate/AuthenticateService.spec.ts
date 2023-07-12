@@ -15,16 +15,16 @@ describe('Autenticate user', () => {
     void userRepository.create(user)
   })
 
-  it('shold be able to autenticate user', () => {
-    expect(authemticate.execute({ email: 'johndoe@example.com', password: '1234' })).resolves.not.toThrow()
+  it('shold be able to autenticate user', async () => {
+    await expect(authemticate.execute({ email: 'johndoe@example.com', password: '1234' })).resolves.not.toThrow()
   })
-  it('shold not be able to authenticate user with wrong email', () => {
-    expect(authemticate.execute({ email: 'wrongEmail@example.com', password: '1234' })).rejects.toThrow(new InvalidCredentialsError())
+  it('shold not be able to authenticate user with wrong email', async () => {
+    await expect(authemticate.execute({ email: 'wrongEmail@example.com', password: '1234' })).rejects.toThrow(new InvalidCredentialsError())
   })
-  it('shold not be able to authenticate user with invalid email', () => {
-    expect(authemticate.execute({ email: 'wrongEmail @example.com', password: '1234' })).rejects.toThrow(new InvalidCredentialsError())
+  it('shold not be able to authenticate user with invalid email', async () => {
+    await expect(authemticate.execute({ email: 'wrongEmail @example.com', password: '1234' })).rejects.toThrow(new InvalidCredentialsError())
   })
-  it('shold not be able to authenticate user with wrong password', () => {
-    expect(authemticate.execute({ email: 'johndoe@example.com', password: 'wrongPassword' })).rejects.toThrow(new InvalidCredentialsError())
+  it('shold not be able to authenticate user with wrong password', async () => {
+    await expect(authemticate.execute({ email: 'johndoe@example.com', password: 'wrongPassword' })).rejects.toThrow(new InvalidCredentialsError())
   })
 })
