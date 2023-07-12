@@ -1,8 +1,8 @@
 ## REQUISITOS FUNCIONAIS 
 
 - [X] Deve ser possivel se cadastrar. 
-- [ ] Deve ser possivel se autenticar.
-- [ ] Deve ser possivel obter o perfil de um usuario logado.
+- [X] Deve ser possivel se autenticar.
+- [X] Deve ser possivel obter o perfil de um usuario logado.
 - [ ] deve ser possivel obter o numero de checl-ins do usuario logado.
 - [ ] deve ser possivel o usuário obter o histórico de check-ins.
 - [ ] deve ser possivel o usuario buscar academias proximas.
@@ -22,6 +22,6 @@
 ## REQUISITOS NÃO FUNCIONAIS
 
 - [X] a senha do usuario precisa ser criptografada.
-- [ ] os dados da aplicaćão precisam ser persistidos em um banco de dados PostgreSQL.
+- [X] os dados da aplicaćão precisam ser persistidos em um banco de dados PostgreSQL.
 - [ ] todas as listas de dados precisam estar paginadas com 20 itens por páginas.
 - [ ] o usuário deve ser identificado por um JWT.
