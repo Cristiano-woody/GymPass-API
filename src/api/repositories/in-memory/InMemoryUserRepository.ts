@@ -2,11 +2,7 @@ import UserEntity from '../../entities/UserEntity'
 import { type IUserRepository } from '../../interfaces/IUserRepository'
 
 class InMemoryUserRepository implements IUserRepository {
-  public users: UserEntity[]
-
-  constructor () {
-    this.users = []
-  }
+  public users: UserEntity[] = []
 
   async create (user: UserEntity): Promise<void> {
     const newUser = new UserEntity(user)
