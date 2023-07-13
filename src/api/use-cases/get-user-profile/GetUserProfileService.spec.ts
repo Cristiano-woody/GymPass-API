@@ -3,6 +3,7 @@ import GetUserProfileService from './GetUserProfileService'
 import InMemoryUserRepository from '../../repositories/in-memory/InMemoryUserRepository'
 import { UserDoesNotExistError } from '../../errors/UserDoesNotExistError'
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
+import UserEntity from '../../entities/UserEntity'
 
 let userRepository: InMemoryUserRepository
 let getUserProfileService: GetUserProfileService
@@ -15,6 +16,14 @@ describe('Get Profile User', () => {
   })
   it('shold be able to get user profile', async () => {
     await expect(getUserProfileService.execute('1234')).resolves.not.toThrow()
+  })
+  it('shold be able to get user profile', async () => {
+    const user = await getUserProfileService.execute('1234')
+    expect(user).toBeInstanceOf(UserEntity)
+  })
+  it('shold be able to get user profile', async () => {
+    const user = await getUserProfileService.execute('1234')
+    expect(user).toHaveProperty('id')
   })
   it('shold not be able to get user profile with wrong id', async () => {
     await expect(getUserProfileService.execute('1')).rejects.toThrow(new UserDoesNotExistError())
