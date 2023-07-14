@@ -2,7 +2,7 @@ import { type Request, type Response } from 'express'
 import { type IGetUserProfileController } from '../../interfaces/IGetUserProfileController'
 import { type IGetUserProfileService } from '../../interfaces/IGetUserProfileService'
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
-import { UserDoesNotExistError } from '../../errors/UserDoesNotExistError'
+import { UserDoesNotExistError } from '../../errors/ResourceNotFoundError'
 
 class GetUserProfileController implements IGetUserProfileController {
   constructor (private readonly getUserProfileService: IGetUserProfileService) {}
