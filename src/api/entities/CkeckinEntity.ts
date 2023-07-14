@@ -11,6 +11,7 @@ class CheckInEntity {
     this.userId = data.userId
     this.gymId = data.gymId
     this.id = data.id
+    this.validatedAt = data.validatedAt
     if (data.id === undefined || data.id === null) {
       this.id = uuidv4()
     }
