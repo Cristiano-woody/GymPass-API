@@ -14,8 +14,8 @@
 ## REGRAS DE NEGÓCIO
 
 - [X] o usuario nao pode se cadastrar com um email duplicado.
-- [ ] o usuario nao ode fazer 2 check-ins no mesmo dia.
-- [ ] o usuario nao pode fazer checkin se nn tiver perto da academia.
+- [X] o usuario nao ode fazer 2 check-ins no mesmo dia.
+- [ ] o usuario nao pode fazer checkin se nao estiver perto da academia (100M).
 - [ ] o checkin so pode ser validado 20 minutos apos ser criado.
 - [ ] o checkin so pode ser validado por administradores
 
