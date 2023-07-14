@@ -1,7 +1,7 @@
 import type UserEntity from '../../entities/UserEntity'
 import { type IGetUserProfileService } from '../../interfaces/IGetUserProfileService'
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
-import { UserDoesNotExistError } from '../../errors/UserDoesNotExistError'
+import { ResourceNotFoundError } from '../../errors/ResourceNotFoundError'
 import { type IUserRepository } from '../../interfaces/IUserRepository'
 
 class GetUserProfileService implements IGetUserProfileService {
@@ -14,7 +14,7 @@ class GetUserProfileService implements IGetUserProfileService {
 
     const user = await this.userRepository.getUser(id)
     if (user === null || user === undefined) {
-      throw new UserDoesNotExistError()
+      throw new ResourceNotFoundError()
     }
     return user
   }
