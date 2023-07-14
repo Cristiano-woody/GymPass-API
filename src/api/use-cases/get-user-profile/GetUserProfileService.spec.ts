@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import GetUserProfileService from './GetUserProfileService'
 import InMemoryUserRepository from '../../repositories/in-memory/InMemoryUserRepository'
-import { UserDoesNotExistError } from '../../errors/UserDoesNotExistError'
+import { ResourceNotFoundError } from '../../errors/ResourceNotFoundError'
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
 import UserEntity from '../../entities/UserEntity'
 
@@ -26,7 +26,7 @@ describe('Get Profile User', () => {
     expect(user).toHaveProperty('id')
   })
   it('shold not be able to get user profile with wrong id', async () => {
-    await expect(getUserProfileService.execute('1')).rejects.toThrow(new UserDoesNotExistError())
+    await expect(getUserProfileService.execute('1')).rejects.toThrow(new ResourceNotFoundError())
   })
   it('shold not be able to get user profile with empity id', async () => {
     await expect(getUserProfileService.execute('')).rejects.toThrow(new InvalidCredentialsError())
