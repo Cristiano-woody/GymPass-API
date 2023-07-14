@@ -45,6 +45,12 @@ class InMemoryUserRepository implements IUserRepository {
     const users = this.users.filter(user => user.id !== id)
     this.users = users
   }
+
+  async userAredyExists (id: string): Promise<boolean> {
+    const user = this.users.filter(user => user.id === id)
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    return !!user[0]
+  }
 }
 
 export default InMemoryUserRepository
