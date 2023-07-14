@@ -2,7 +2,7 @@ import { prisma } from '../../db/prisma'
 import CheckInEntity from '../entities/CkeckinEntity'
 import { type ICheckinRepository } from '../interfaces/ICheckinRepository'
 
-class UserRepository implements ICheckinRepository {
+class CheckInRepository implements ICheckinRepository {
   async create (data: CheckInEntity): Promise<CheckInEntity | undefined> {
     const newCheckIn = new CheckInEntity(data)
     if (newCheckIn.id !== undefined && newCheckIn.createdAt !== undefined) {
@@ -20,4 +20,4 @@ class UserRepository implements ICheckinRepository {
   }
 }
 
-export default UserRepository
+export default CheckInRepository
