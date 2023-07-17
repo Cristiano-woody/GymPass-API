@@ -1,5 +1,3 @@
-import type CheckInEntity from '../entities/CkeckinEntity'
-
 export interface ICreateCheckInService {
-  execute: (data: CheckInEntity) => Promise<void>
+  execute: (data: { userId: string, gymId: string, userCoordinates: { latitude: number, longitude: number } }) => Promise<void>
 }
