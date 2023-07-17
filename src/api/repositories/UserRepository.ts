@@ -60,6 +60,20 @@ class UserRepository implements IUserRepository {
       }
     })
   }
+
+  async userAredyExists (id: string): Promise<boolean> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (user === null) {
+      return false
+    }
+
+    return true
+  }
 }
 
 export default UserRepository
