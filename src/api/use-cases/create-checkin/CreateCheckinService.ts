@@ -11,8 +11,7 @@ import { MaxDistanceError } from '../../errors/MaxDistanceError'
 class CreateCheckInService implements ICreateCheckInService {
   constructor (private readonly CheckInRepository: ICheckinRepository, private readonly UserRepository: IUserRepository, private readonly GymRepository: IGymRepository) {}
 
-  async execute (
-    data: { userId: string, gymId: string, userCoordinates: { latitude: number, longitude: number } }): Promise<void> {
+  async execute (data: { userId: string, gymId: string, userCoordinates: { latitude: number, longitude: number } }): Promise<void> {
     if (data.gymId === undefined || data.gymId === '') {
       throw new InvalidCredentialsError()
     }
@@ -46,7 +45,7 @@ class CreateCheckInService implements ICreateCheckInService {
       throw new TwoCheckInsAreNotAlowed()
     }
 
-    await this.CheckInRepository.create({ gymId: data.gymId, userId: data.userId })
+    await this.CheckInRepository.create({ gym_id: data.gymId, user_id: data.userId })
   }
 }
 
