@@ -4,12 +4,12 @@ class CheckInEntity {
   public id?: string
   public createdAt?: Date
   public validatedAt?: Date
-  public userId: string
-  public gymId: string
+  public user_id: string
+  public gym_id: string
 
   constructor (data: CheckInEntity) {
-    this.userId = data.userId
-    this.gymId = data.gymId
+    this.user_id = data.user_id
+    this.gym_id = data.gym_id
     this.id = data.id
     this.validatedAt = data.validatedAt
     if (data.id === undefined || data.id === null) {
