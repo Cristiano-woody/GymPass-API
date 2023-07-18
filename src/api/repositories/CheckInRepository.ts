@@ -9,13 +9,25 @@ class CheckInRepository implements ICheckinRepository {
       await prisma.checkIn.create({
         data: {
           id: newCheckIn.id,
-          gym_id: newCheckIn.gymId,
-          user_id: newCheckIn.userId,
+          gym_id: newCheckIn.gym_id,
+          user_id: newCheckIn.user_id,
           created_at: newCheckIn.createdAt,
           validated_at: newCheckIn.validatedAt
         }
       })
       return newCheckIn
+    }
+  }
+
+  async fyndByUserInOnDate (data: { date: Date, userId: string }): Promise<CheckInEntity | undefined> {
+    const checkIn = await prisma.checkIn.findFirst({
+      where: {
+        user_id: data.userId,
+        created_at: new Date(data.date)
+      }
+    })
+    if (checkIn !== null) {
+      return checkIn
     }
   }
 }
