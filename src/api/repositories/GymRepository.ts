@@ -1,18 +1,18 @@
+import { Decimal } from '@prisma/client/runtime/library'
 import { prisma } from '../../db/prisma'
 import GymEntity from '../entities/GymEntity'
 import { type IGymRepository } from '../interfaces/IGymRepository'
-import { type Prisma } from '@prisma/client'
 
 class GymRepository implements IGymRepository {
-  async create (data: { title: string, latitude: Prisma.Decimal, longitude: Prisma.Decimal }): Promise<void> {
+  async create (data: { title: string, latitude: number, longitude: number }): Promise<void> {
     const newGym = new GymEntity({ title: data.title, latitude: data.latitude, longitude: data.longitude })
     if (newGym.id !== undefined) {
       await prisma.gym.create({
         data: {
           id: newGym.id,
           title: newGym.title,
-          latitude: newGym.latitude,
-          longitude: newGym.longitude
+          latitude: new Decimal(newGym.latitude),
+          longitude: new Decimal(newGym.longitude)
         }
       })
     }
@@ -25,7 +25,12 @@ class GymRepository implements IGymRepository {
       }
     })
     if (gym !== null) {
-      return gym
+      return new GymEntity({
+        id: gym.id,
+        title: gym.title,
+        latitude: gym.latitude.toNumber(),
+        longitude: gym.longitude.toNumber()
+      })
     }
   }
 }
