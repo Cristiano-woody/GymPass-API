@@ -19,7 +19,7 @@ class InMemoryCheckInRepository implements ICheckinRepository {
       const checkInDate = dayjs(iten.createdAt)
       const isOnSameDate = checkInDate.isAfter(startOfTheDay) && checkInDate.isBefore(endOfTheDay)
 
-      return iten.userId === data.userId && isOnSameDate
+      return iten.user_id === data.userId && isOnSameDate
     })
 
     if (checkInOnSameDate === undefined) {
