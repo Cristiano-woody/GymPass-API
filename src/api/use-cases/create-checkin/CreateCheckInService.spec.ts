@@ -13,6 +13,9 @@ let userRepository: InMemoryUserRepository
 let gymRepository: InMemoryGymRepository
 let createCheckInService: CreateCheckInService
 
+const gymIdDefault = '123'
+const userIdDefaul = 'user1234'
+
 describe('Create a checkIn ', () => {
   beforeEach(async () => {
     checkInRepository = new InMemoryCheckInRepository()
@@ -20,8 +23,8 @@ describe('Create a checkIn ', () => {
     gymRepository = new InMemoryGymRepository()
     createCheckInService = new CreateCheckInService(checkInRepository, userRepository, gymRepository)
 
-    void gymRepository.create({ id: '123', title: 'tsAcademy', latitude: -8.0481364, longitude: -34.8791966 })
-    void userRepository.create({ email: 'johndoe@example.com', name: 'john doe', password_hash: '1234', id: 'user1234' })
+    void gymRepository.create({ id: gymIdDefault, title: 'tsAcademy', latitude: -8.0481364, longitude: -34.8791966 })
+    void userRepository.create({ email: 'johndoe@example.com', name: 'john doe', password_hash: '1234', id: userIdDefaul })
     vi.useFakeTimers()
   })
 
@@ -32,8 +35,8 @@ describe('Create a checkIn ', () => {
   it('shold be able to create a checkIn', async () => {
     await expect(createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
     )).resolves.not.toThrow()
@@ -42,8 +45,7 @@ describe('Create a checkIn ', () => {
   it('shold not be able to create a checkIn with empty userId field', async () => {
     await expect(createCheckInService.execute(
       {
-        gymId:
-        'asd12e-123wsd-12412',
+        gymId: gymIdDefault,
         userId: '',
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
@@ -54,7 +56,7 @@ describe('Create a checkIn ', () => {
     await expect(createCheckInService.execute(
       {
         gymId: '',
-        userId: 'asdq13-sdfw12-sfsdf3',
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
     )).rejects.toThrow(new InvalidCredentialsError())
@@ -63,8 +65,18 @@ describe('Create a checkIn ', () => {
   it('should not be able to create a CheckIn with unregistered user', async () => {
     await expect(createCheckInService.execute(
       {
-        gymId: 'asd12e-123wsd-12412',
+        gymId: gymIdDefault,
         userId: 'user Does not exist',
+        userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
+      }
+    )).rejects.toThrow(new ResourceNotFoundError())
+  })
+
+  it('should not be able to create a CheckIn with unregistered gym', async () => {
+    await expect(createCheckInService.execute(
+      {
+        gymId: 'unregistered gym',
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
     )).rejects.toThrow(new ResourceNotFoundError())
@@ -74,15 +86,15 @@ describe('Create a checkIn ', () => {
     vi.setSystemTime(new Date(2023, 0, 20, 8, 0, 0))
     await createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       })
 
     await expect(createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
     )).rejects.toThrow(new TwoCheckInsAreNotAlowed())
@@ -92,16 +104,16 @@ describe('Create a checkIn ', () => {
     vi.setSystemTime(new Date(2023, 0, 20, 8, 0, 0))
     await createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       })
 
     vi.setSystemTime(new Date(2023, 0, 21, 8, 0, 0))
     await expect(createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0481364, longitude: -34.8791966 }
       }
     )).resolves.not.toThrow()
@@ -110,8 +122,8 @@ describe('Create a checkIn ', () => {
   it('shold be able to create check in with a distance of less than 100 meters', async () => {
     await expect(createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.048729, longitude: -34.879487 }
       }
     )).resolves.not.toThrow()
@@ -120,8 +132,8 @@ describe('Create a checkIn ', () => {
   it('shold not be able to create check in with a distance greater than 100 meters', async () => {
     await expect(createCheckInService.execute(
       {
-        gymId: '123',
-        userId: 'user1234',
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
         userCoordinates: { latitude: -8.0490052, longitude: -34.8884457 }
       }
     )).rejects.toThrow(new MaxDistanceError())
