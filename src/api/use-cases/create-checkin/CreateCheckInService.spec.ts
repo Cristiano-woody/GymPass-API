@@ -138,4 +138,13 @@ describe('Create a checkIn ', () => {
       }
     )).rejects.toThrow(new MaxDistanceError())
   })
+  it('sold be able to create a new checkIn with a distance greater than 100 maters', async () => {
+    await expect(createCheckInService.execute(
+      {
+        gymId: gymIdDefault,
+        userId: userIdDefaul,
+        userCoordinates: { latitude: 0, longitude: 0 }
+      }
+    )).rejects.toThrow(new MaxDistanceError())
+  })
 })
