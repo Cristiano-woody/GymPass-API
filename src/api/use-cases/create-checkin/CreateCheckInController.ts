@@ -3,6 +3,7 @@ import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
 import { type ICreateCheckInService } from '../../interfaces/ICreateCheckInService'
 import { ResourceNotFoundError } from '../../errors/ResourceNotFoundError'
 import { TwoCheckInsAreNotAlowed } from '../../errors/TwoCheckInsAreNotAlowed'
+import { MaxDistanceError } from '../../errors/MaxDistanceError'
 
 class CreateCheckInController {
   constructor (private readonly CreateUserService: ICreateCheckInService) {}
@@ -18,6 +19,9 @@ class CreateCheckInController {
         return res.status(400).send({ message: error.message })
       }
       if (error instanceof TwoCheckInsAreNotAlowed) {
+        return res.status(400).send({ message: error.message })
+      }
+      if (error instanceof MaxDistanceError) {
         return res.status(400).send({ message: error.message })
       }
 
