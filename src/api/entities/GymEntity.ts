@@ -11,9 +11,9 @@ class GymEntity {
   constructor (data: GymEntity) {
     this.title = data.title
     this.description = data.description
-    this.id = data.id
     this.latitude = data.latitude
     this.longitude = data.longitude
+    this.id = data.id
     if (data.id === undefined || data.id === null) {
       this.id = uuidv4()
     }
