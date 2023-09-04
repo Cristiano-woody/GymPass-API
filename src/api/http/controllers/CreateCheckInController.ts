@@ -4,12 +4,17 @@ import { type ICreateCheckInService } from '../../interfaces/ICreateCheckInServi
 import { ResourceNotFoundError } from '../../errors/ResourceNotFoundError'
 import { TwoCheckInsAreNotAlowed } from '../../errors/TwoCheckInsAreNotAlowed'
 import { MaxDistanceError } from '../../errors/MaxDistanceError'
+import { CreateCheckInFactory } from '../../use-cases/create-checkin/CreateCheckInFactory'
 
 class CreateCheckInController {
-  constructor (private readonly CreateUserService: ICreateCheckInService) {}
+  private readonly createUserService: ICreateCheckInService
+  constructor () {
+    this.createUserService = CreateCheckInFactory()
+  }
+
   async handle (req: Request, res: Response): Promise<Response> {
     try {
-      await this.CreateUserService.execute(req.body)
+      await this.createUserService.execute(req.body)
       return res.status(201).send('CheckIn created successfully')
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
