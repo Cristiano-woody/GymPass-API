@@ -1,11 +1,15 @@
 import { type Request, type Response } from 'express'
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError'
 import { type ICreateGymService } from '../../interfaces/ICreateGymService'
+import { createGymFactory } from '../../use-cases/create-gym/createGymFactory'
 
 class CreateGymController {
-  //
-  constructor (private readonly CreateGymService: ICreateGymService) {}
-  //
+  private readonly CreateGymService: ICreateGymService
+
+  constructor () {
+    this.CreateGymService = createGymFactory()
+  }
+
   async handle (req: Request, res: Response): Promise<Response> {
     try {
       await this.CreateGymService.execute(req.body)
