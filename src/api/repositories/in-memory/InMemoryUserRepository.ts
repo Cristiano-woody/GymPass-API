@@ -4,9 +4,10 @@ import { type IUserRepository } from '../../interfaces/IUserRepository'
 class InMemoryUserRepository implements IUserRepository {
   public users: UserEntity[] = []
 
-  async create (user: UserEntity): Promise<void> {
+  async create (user: UserEntity): Promise<UserEntity> {
     const newUser = new UserEntity(user)
     this.users.push(newUser)
+    return newUser
   }
 
   async getAllUsers (): Promise<UserEntity[]> {
