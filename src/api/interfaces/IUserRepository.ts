@@ -1,7 +1,7 @@
 import type UserEntity from '../entities/UserEntity'
 
 export interface IUserRepository {
-  create: (user: UserEntity) => Promise<void>
+  create: (user: UserEntity) => Promise<UserEntity | undefined>
   getUser: (id: string) => Promise<UserEntity | null>
   getUserByEmail: (email: string) => Promise<UserEntity | null>
   getAllUsers: () => Promise<UserEntity[]>
