@@ -3,10 +3,10 @@ import { prisma } from '../../db/prisma'
 import UserEntity from '../entities/UserEntity'
 
 class UserRepository implements IUserRepository {
-  async create (user: UserEntity): Promise<void> {
+  async create (user: UserEntity): Promise<UserEntity | undefined> {
     const newUser = new UserEntity(user)
     if (newUser.id !== undefined && newUser.password_hash !== undefined) {
-      await prisma.user.create({
+      return await prisma.user.create({
         data: {
           name: newUser.name,
           email: newUser.email,
