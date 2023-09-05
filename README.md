@@ -4,7 +4,7 @@
 - [X] Deve ser possivel se autenticar.
 - [X] Deve ser possivel obter o perfil de um usuario logado.
 - [ ] deve ser possivel obter o numero de checl-ins do usuario logado.
-- [ ] deve ser possivel o usuário obter o histórico de check-ins.
+- [x] deve ser possivel o usuário obter o histórico de check-ins.
 - [ ] deve ser possivel o usuario buscar academias proximas.
 - [ ] deve ser possivel o usuario buscar academias pelo nome.
 - [X] deve ser possivel o usuario realizar check-ins em uma academia.
