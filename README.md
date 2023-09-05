@@ -7,9 +7,9 @@
 - [ ] deve ser possivel o usuário obter o histórico de check-ins.
 - [ ] deve ser possivel o usuario buscar academias proximas.
 - [ ] deve ser possivel o usuario buscar academias pelo nome.
-- [ ] deve ser possivel o usuario realizar checl-ins em uma academia.
+- [X] deve ser possivel o usuario realizar check-ins em uma academia.
 - [ ] deve ser possivel validar o cke-in de um usuario.
-- [ ] deve ser possivel cadastrar uma academia.
+- [X] deve ser possivel cadastrar uma academia.
 
 ## REGRAS DE NEGÓCIO
 
