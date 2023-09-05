@@ -2,7 +2,7 @@ import type CheckInEntity from '../../entities/CkeckinEntity'
 import { type ICheckinRepository } from '../../interfaces/ICheckinRepository'
 import { type IGetUserCheckInHistoryService } from '../../interfaces/IGetUserCheckInHistoryService'
 
-class GetCheckInHistoryService implements IGetUserCheckInHistoryService {
+class GetUserCheckInHistoryService implements IGetUserCheckInHistoryService {
   constructor (private readonly checkinRepository: ICheckinRepository) {}
 
   async execute (id: string, page: number): Promise<CheckInEntity[]> {
@@ -10,4 +10,4 @@ class GetCheckInHistoryService implements IGetUserCheckInHistoryService {
   }
 }
 
-export default GetCheckInHistoryService
+export default GetUserCheckInHistoryService
