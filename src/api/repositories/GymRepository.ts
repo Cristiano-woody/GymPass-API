@@ -37,7 +37,9 @@ class GymRepository implements IGymRepository {
   async searchMany (query: string, page: number): Promise<GymEntity[]> {
     const gyms = await prisma.gym.findMany({
       where: {
-        title: `${query}`
+        title: {
+          contains: `${query}`
+        }
       }
     })
     const gymsFormated = gyms.map((gym) => {
