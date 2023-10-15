@@ -33,6 +33,23 @@ class GymRepository implements IGymRepository {
       })
     }
   }
+
+  async searchMany (query: string, page: number): Promise<GymEntity[]> {
+    const gyms = await prisma.gym.findMany({
+      where: {
+        title: `${query}`
+      }
+    })
+    const gymsFormated = gyms.map((gym) => {
+      return new GymEntity({
+        id: gym.id,
+        title: gym.title,
+        latitude: gym.latitude.toNumber(),
+        longitude: gym.longitude.toNumber()
+      })
+    })
+    return gymsFormated
+  }
 }
 
 export default GymRepository
