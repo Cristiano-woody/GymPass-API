@@ -13,6 +13,10 @@ class InMemoryGymRepository implements IGymRepository {
     const gym = this.gym.find(gym => gym.id === id)
     return gym
   }
+
+  async searchMany (query: string, page: number): Promise<GymEntity[]> {
+    return this.gym.filter(gym => gym.title.includes(query)).slice((page - 1) * 20, page * 20)
+  }
 }
 
 export default InMemoryGymRepository
